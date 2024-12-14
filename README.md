@@ -1,66 +1,51 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Category Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Purpose
 
-## About Laravel
+We require to build a system where the admin can manage the parent-child category relationship using a single table. Below is the table structure of the category table.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table Structure
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. **category_id**: Unique identifier for the category.
+2. **Name**: The name of the category.
+3. **Status**: The status of the category. 
+   - `1`: Enabled
+   - `2`: Disabled
+4. **Parent_id**: The ID of the parent category (null for root categories).
+5. **Created Date**: The date and time when the category was created.
+6. **Updated Date**: The date and time when the category was last updated (should have a value if updated at least once).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Points to be Closed
 
-## Learning Laravel
+1. **Category Grid**  
+   A grid will display a list of categories with the following columns:
+   - **category_id**: Unique identifier of the category.
+   - **Name**: You will show the category with the full path (e.g., `Bedroom > Beds > Panel Bed`).
+   - **Status**: Current status of the category (`1` - enabled, `2` - disabled).
+   - **Parent_id**: ID of the parent category.
+   - **Created Date**: The date and time the category was created.
+   - **Updated Date**: The date and time the category was last updated.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Add Category Button**  
+   A button will be provided at the top to add a new category. The admin can select a parent category from a dropdown that displays the complete hierarchical path, like below:
+   - Bedroom
+   - Bedroom > Beds
+   - Bedroom > Beds > Panel Bed
+   - Bedroom > Night Stand
+   - Bedroom > Dresser
+   - Living Room > Sofas
+   - Living Room > Loveseats
+   - Living Room > Tables
+   - Living Room > Tables > Coffee Table
+   - Living Room > Tables > Side Table
+   
+   This dropdown will help the admin understand the complete hierarchy when adding or editing a category.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **Editing Category**  
+   The category that is being edited should **not** appear in the parent category dropdown to prevent circular relationships.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **Change Parent Category**  
+   The admin should be able to change the parent category of any existing category.
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. **Deleting Categories**  
+   If any category is deleted and it has child categories, the child categories should be shifted under the parent category of the category that is being deleted.
